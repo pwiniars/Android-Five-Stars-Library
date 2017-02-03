@@ -1,5 +1,6 @@
 package angtrim.com.sampleapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,11 +21,16 @@ public class MainActivity extends AppCompatActivity implements NegativeReviewLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this,"angelo.gallarello@gmail.com");
+        FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this, "angelo.gallarello@gmail.com");
         fiveStarsDialog.setRateText("Your custom text")
                 .setTitle("Your custom title")
                 .setForceMode(false)
                 .setUpperBound(2)
+                .setEmailChooserText("Send email...")
+                .setPositiveText("OK")
+                .setNegativeText("NOT NOW")
+                .setNeutralText("NEVER")
+                .setStarColor(Color.parseColor("#ffee32"))
                 .setNegativeReviewListener(this)
                 .setReviewListener(this)
                 .showAfter(0);

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -21,9 +23,6 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
     private final static String DEFAULT_TITLE = "Rate this app";
     private final static String DEFAULT_TEXT = "How much do you love our app?";
-    private final static String DEFAULT_POSITIVE = "Ok";
-    private final static String DEFAULT_NEGATIVE = "Not Now";
-    private final static String DEFAULT_NEVER = "Never";
     private final static String SP_NUM_OF_ACCESS = "numOfAccess";
     private static final String SP_DISABLED = "disabled";
     private static final String TAG = FiveStarsDialog.class.getSimpleName();
@@ -41,10 +40,15 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private NegativeReviewListener negativeReviewListener;
     private ReviewListener reviewListener;
 
+    private int starColor = -1;
+    private String positiveText = "Ok";
+    private String negativeText = "Not Now";
+    private String neutralText = "Never";
+    private String emailChooserText = "Send mail...";
 
     public FiveStarsDialog(Context context,String supportEmail){
         this.context = context;
-        sharedPrefs = context.getSharedPreferences(context.getPackageName(),Context.MODE_PRIVATE);
+        sharedPrefs = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         this.supportEmail = supportEmail;
     }
 
@@ -77,9 +81,9 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
         alertDialog = builder.setTitle(titleToAdd)
                 .setView(dialogView)
-                .setNegativeButton(DEFAULT_NEGATIVE,this)
-                .setPositiveButton(DEFAULT_POSITIVE,this)
-                .setNeutralButton(DEFAULT_NEVER,this)
+                .setNegativeButton(negativeText, this)
+                .setPositiveButton(positiveText, this)
+                .setNeutralButton(neutralText, this)
                 .create();
     }
 
@@ -103,9 +107,9 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         final Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/email");
         emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[] {supportEmail});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "App Report ("+context.getPackageName()+")");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "App Report (" + context.getPackageName()+")");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-        context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        context.startActivity(Intent.createChooser(emailIntent, emailChooserText));
     }
 
     private void show() {
@@ -205,7 +209,7 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
      */
     public FiveStarsDialog setNegativeReviewListener(NegativeReviewListener listener){
         this.negativeReviewListener = listener;
-        return  this;
+        return this;
     }
 
     /**
@@ -215,6 +219,46 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
      */
     public FiveStarsDialog setReviewListener(ReviewListener listener){
         this.reviewListener = listener;
+        return this;
+    }
+
+    /**
+     * Set the positive button text
+     * @param text the positive content text
+     * @return the dialog
+     */
+    public FiveStarsDialog setPositiveText(String text){
+        this.positiveText = text;
+        return this;
+    }
+
+    /**
+     * Set the negative button text
+     * @param text the negative content text
+     * @return the dialog
+     */
+    public FiveStarsDialog setNegativeText(String text){
+        this.negativeText = text;
+        return this;
+    }
+
+    /**
+     * Set the neutral button text
+     * @param text the neutral content text
+     * @return the dialog
+     */
+    public FiveStarsDialog setNeutralText(String text){
+        this.neutralText = text;
+        return this;
+    }
+
+    /**
+     * Set the email chooser title text
+     * @param text the email chooser title text
+     * @return the dialog
+     */
+    public FiveStarsDialog setEmailChooserText(String text){
+        this.emailChooserText = text;
         return this;
     }
 
