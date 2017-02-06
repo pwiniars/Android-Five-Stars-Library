@@ -31,7 +31,7 @@ To use the library, first include it your project using Gradle
     }
 
 	dependencies {
-	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.3'
+	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.4'
 	}
 
 
@@ -56,6 +56,8 @@ Example:
 		.setNeutralButtonColor(Color.parseColor("#CF0000"))
                 .setNegativeButtonColor(Color.parseColor("#E67220"))
                 .setPositiveButtonColor(Color.parseColor("#24AD02"))
+		.setButtonTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
+		.setContentTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL))
                 .setUpperBound(2) // Market opened if a rating >= 2 is selected
                 .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
                 .setReviewListener(this) // Used to listen for reviews (if you want to track them )
