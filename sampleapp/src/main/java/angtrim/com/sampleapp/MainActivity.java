@@ -1,6 +1,7 @@
 package angtrim.com.sampleapp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements NegativeReviewLis
                 .setNeutralButtonColor(Color.parseColor("#CF0000"))
                 .setNegativeButtonColor(Color.parseColor("#E67220"))
                 .setPositiveButtonColor(Color.parseColor("#24AD02"))
+                .setButtonTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
+                .setContentTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL))
                 .setStarColor(Color.parseColor("#ffee32"))
                 .setNegativeReviewListener(this)
                 .setReviewListener(this)

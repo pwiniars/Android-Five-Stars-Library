@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
@@ -50,6 +51,9 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private String neutralText = "Never";
     private String emailChooserText = "Send mail...";
 
+    private Typeface buttonTypeface;
+    private Typeface contentTypeface;
+
     public FiveStarsDialog(Context context,String supportEmail){
         this.context = context;
         sharedPrefs = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
@@ -64,6 +68,10 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         String textToAdd = (rateText == null) ? DEFAULT_TEXT : rateText;
         contentTextView = (TextView)dialogView.findViewById(R.id.text_content);
         contentTextView.setText(textToAdd);
+        if (contentTypeface != null) {
+            contentTextView.setTypeface(contentTypeface);
+        }
+
         ratingBar = (RatingBar) dialogView.findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -130,12 +138,21 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         }
     }
 
+    private void setButtonsTypefaceIfNeeded() {
+        if (buttonTypeface != null) {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTypeface(buttonTypeface);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTypeface(buttonTypeface);
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTypeface(buttonTypeface);
+        }
+    }
+
     private void show() {
         boolean disabled  = sharedPrefs.getBoolean(SP_DISABLED, false);
         if(!disabled){
             build();
             alertDialog.show();
             setButtonColorsIfNeeded();
+            setButtonsTypefaceIfNeeded();
         }
     }
 
@@ -296,4 +313,13 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         return this;
     }
 
+    public FiveStarsDialog setButtonTypeface(Typeface buttonTypeface) {
+        this.buttonTypeface = buttonTypeface;
+        return this;
+    }
+
+    public FiveStarsDialog setContentTypeface(Typeface contentTypeface) {
+        this.contentTypeface = contentTypeface;
+        return this;
+    }
 }
