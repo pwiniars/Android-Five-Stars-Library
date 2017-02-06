@@ -41,6 +41,10 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private ReviewListener reviewListener;
 
     private int starColor = -1;
+    private int positiveButtonColor = -1;
+    private int neutralButtonColor = -1;
+    private int negativeButtonColor = -1;
+
     private String positiveText = "Ok";
     private String negativeText = "Not Now";
     private String neutralText = "Never";
@@ -112,11 +116,26 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         context.startActivity(Intent.createChooser(emailIntent, emailChooserText));
     }
 
+    private void setButtonColorsIfNeeded() {
+        if (positiveButtonColor != -1) {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(positiveButtonColor);
+        }
+
+        if (negativeButtonColor != -1) {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(negativeButtonColor);
+        }
+
+        if (neutralButtonColor != -1) {
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(neutralButtonColor);
+        }
+    }
+
     private void show() {
         boolean disabled  = sharedPrefs.getBoolean(SP_DISABLED, false);
         if(!disabled){
             build();
             alertDialog.show();
+            setButtonColorsIfNeeded();
         }
     }
 
@@ -178,6 +197,21 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
     public FiveStarsDialog setStarColor(int color){
         starColor = color;
+        return this;
+    }
+
+    public FiveStarsDialog setPositiveButtonColor(int positiveButtonColor) {
+        this.positiveButtonColor = positiveButtonColor;
+        return this;
+    }
+
+    public FiveStarsDialog setNeutralButtonColor(int neutralButtonColor) {
+        this.neutralButtonColor = neutralButtonColor;
+        return this;
+    }
+
+    public FiveStarsDialog setNegativeButtonColor(int negativeButtonColor) {
+        this.negativeButtonColor = negativeButtonColor;
         return this;
     }
 
