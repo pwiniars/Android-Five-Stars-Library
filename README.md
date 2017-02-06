@@ -31,7 +31,7 @@ To use the library, first include it your project using Gradle
     }
 
 	dependencies {
-	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.2'
+	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.3'
 	}
 
 
