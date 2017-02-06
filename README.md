@@ -53,6 +53,9 @@ Example:
                 .setPositiveText("OK")
                 .setNegativeText("NOT NOW")
                 .setNeutralText("NEVER")
+		.setNeutralButtonColor(Color.parseColor("#CF0000"))
+                .setNegativeButtonColor(Color.parseColor("#E67220"))
+                .setPositiveButtonColor(Color.parseColor("#24AD02"))
                 .setUpperBound(2) // Market opened if a rating >= 2 is selected
                 .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
                 .setReviewListener(this) // Used to listen for reviews (if you want to track them )
