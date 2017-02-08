@@ -45,6 +45,7 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private int positiveButtonColor = -1;
     private int neutralButtonColor = -1;
     private int negativeButtonColor = -1;
+    private int contentTextVisibility = View.VISIBLE;
 
     private String positiveText = "Ok";
     private String negativeText = "Not Now";
@@ -71,6 +72,7 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         if (contentTypeface != null) {
             contentTextView.setTypeface(contentTypeface);
         }
+        contentTextView.setVisibility(contentTextVisibility);
 
         ratingBar = (RatingBar) dialogView.findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -320,6 +322,11 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
     public FiveStarsDialog setContentTypeface(Typeface contentTypeface) {
         this.contentTypeface = contentTypeface;
+        return this;
+    }
+
+    public FiveStarsDialog setContentTextVisibility(int visibility) {
+        this.contentTextVisibility = visibility;
         return this;
     }
 }

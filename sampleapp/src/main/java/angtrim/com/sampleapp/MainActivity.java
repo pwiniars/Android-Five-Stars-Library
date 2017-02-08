@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements NegativeReviewLis
         FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this, "angelo.gallarello@gmail.com");
         fiveStarsDialog.setRateText("Your custom text")
                 .setTitle("Your custom title")
+//                .setContentTextVisibility(View.GONE) // posibility to hide subtitle
                 .setForceMode(false)
                 .setUpperBound(2)
                 .setEmailChooserText("Send email...")

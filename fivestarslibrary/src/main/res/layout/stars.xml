@@ -15,7 +15,6 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="30dp"
         android:textColor="#212121"
-        android:layout_marginBottom="20dp"
         />
 
     <RatingBar
@@ -26,6 +25,7 @@
         android:layout_gravity="center"
         android:stepSize="1"
         android:numStars="5"
+        android:layout_marginTop="20dp"
         android:paddingBottom="20dp"
         />
 
