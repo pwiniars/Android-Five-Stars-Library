@@ -31,7 +31,7 @@ To use the library, first include it your project using Gradle
     }
 
 	dependencies {
-	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.4'
+	        compile 'com.github.pwiniars:Android-Five-Stars-Library:v3.5'
 	}
 
 
@@ -47,6 +47,7 @@ Example:
         FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this,"angelo.gallarello@gmail.com");
         fiveStarsDialog.setRateText("Your custom text")
                 .setTitle("Your custom title")
+//                .setContentTextVisibility(View.GONE) // posibility to hide subtitle
                 .setForceMode(false)
                 .setStarColor(Color.YELLOW)
                 .setEmailChooserText("Send email...")
