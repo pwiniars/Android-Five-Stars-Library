@@ -59,8 +59,8 @@ Example:
                 .setPositiveButtonColor(Color.parseColor("#24AD02"))
                 .setButtonTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
                 .setContentTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL))
-			.setStarColor(Color.parseColor("#ffee32"))
-			.setNoRatingSelectedText("Please select your rating first.")
+                .setStarColor(Color.parseColor("#ffee32"))
+                .setNoRatingSelectedText("Please select your rating first.")
                 .setUpperBound(2) // Market opened if a rating >= 2 is selected
                 .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
                 .setReviewListener(this) // Used to listen for reviews (if you want to track them )
