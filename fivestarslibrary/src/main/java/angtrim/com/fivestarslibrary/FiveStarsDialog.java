@@ -14,13 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
  * Created by angtrim on 12/09/15.
  *
  */
-public class FiveStarsDialog  implements DialogInterface.OnClickListener{
+public class FiveStarsDialog implements DialogInterface.OnClickListener{
 
     private final static String DEFAULT_TITLE = "Rate this app";
     private final static String DEFAULT_TEXT = "How much do you love our app?";
@@ -51,6 +52,7 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private String negativeText = "Not Now";
     private String neutralText = "Never";
     private String emailChooserText = "Send mail...";
+    private String noRatingSelectedToastText = "Please select your rating first.";
 
     private Typeface buttonTypeface;
     private Typeface contentTypeface;
@@ -153,9 +155,38 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         if(!disabled){
             build();
             alertDialog.show();
+            setPositiveButtonCustomListener();
             setButtonColorsIfNeeded();
             setButtonsTypefaceIfNeeded();
         }
+    }
+
+    private void setPositiveButtonCustomListener() {
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ratingBar.getRating() == 0) {
+                    Toast.makeText(context, noRatingSelectedToastText, Toast.LENGTH_LONG).show();
+                } else if (ratingBar.getRating() < upperBound) {
+                    if (negativeReviewListener == null) {
+                        sendEmail();
+                    } else {
+                        negativeReviewListener.onNegativeReview((int)ratingBar.getRating());
+                    }
+                    alertDialog.hide();
+                    disable();
+                } else if (!isForceMode) {
+                    openMarket();
+                    alertDialog.hide();
+                    disable();
+                }
+                if (reviewListener != null && ratingBar.getRating() > 0) {
+                    reviewListener.onReview((int)ratingBar.getRating());
+                    alertDialog.hide();
+                    disable();
+                }
+            }
+        });
     }
 
     public void showAfter(int numberOfAccess){
@@ -172,25 +203,10 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-        if(i == DialogInterface.BUTTON_POSITIVE){
-            if(ratingBar.getRating() < upperBound){
-                if(negativeReviewListener == null){
-                    sendEmail();
-                }else{
-                    negativeReviewListener.onNegativeReview((int)ratingBar.getRating());
-                }
-
-            }else if(!isForceMode){
-                openMarket();
-            }
-            disable();
-            if(reviewListener != null)
-                reviewListener.onReview((int)ratingBar.getRating());
-        }
-        if(i == DialogInterface.BUTTON_NEUTRAL){
+        if (i == DialogInterface.BUTTON_NEUTRAL) {
             disable();
         }
-        if(i == DialogInterface.BUTTON_NEGATIVE){
+        if (i == DialogInterface.BUTTON_NEGATIVE) {
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putInt(SP_NUM_OF_ACCESS, 0);
             editor.apply();
@@ -312,6 +328,16 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
      */
     public FiveStarsDialog setEmailChooserText(String text){
         this.emailChooserText = text;
+        return this;
+    }
+
+    /**
+     * Set the no rating selected Toast text
+     * @param text the no rating selected text
+     * @return the dialog
+     */
+    public FiveStarsDialog setNoRatingSelectedText(String text){
+        this.noRatingSelectedToastText = text;
         return this;
     }
 

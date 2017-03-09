@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NegativeReviewLis
                 .setButtonTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
                 .setContentTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL))
                 .setStarColor(Color.parseColor("#ffee32"))
+                .setNoRatingSelectedText("Please select your rating first.")
                 .setNegativeReviewListener(this)
                 .setReviewListener(this)
                 .showAfter(0);
